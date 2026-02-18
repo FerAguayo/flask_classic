@@ -39,7 +39,10 @@ def remove(id):
         resultado = select_by(id)
         return render_template("delete.html", data = resultado)
     else:
-        pass
+        delete(id)
+        return redirect("/")
+
+
 @app.route("/update/<int:id>",methods=["GET","POST"])
 def update(id):
     if request.method == "GET":
@@ -51,4 +54,6 @@ def update(id):
         resultado_dic["quantity"]= resultado[3]
         return render_template("update.html",dataForm=resultado_dic,boton="Actualizar",url_post=f"/update/{id}")
     else:
-        pass
+        update_by(id,[ request.form["date"],request.form["concept"],request.form["quantity"]])
+
+        return redirect("/")

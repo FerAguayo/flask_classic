@@ -34,3 +34,19 @@ def select_by(id):
     res = cur.execute(f"SELECT * FROM movements WHERE id={id};")
     resultado = res.fetchall()
     return resultado[0]
+
+def delete(id):
+    conexion = sqlite3.connect(ORIGIN_DATA)
+    cur = conexion.cursor()
+    res = cur.execute(f"DELETE from movements WHERE id = {id};")
+    conexion.commit()
+
+    conexion.close()
+
+def update_by(id,datos_form):
+    conexion = sqlite3.connect(ORIGIN_DATA)
+    cur = conexion.cursor()
+    res = cur.execute(f"UPDATE movements SET date = ?, concept = ? , quantity = ? WHERE id ={id};", datos_form)
+    conexion.commit()
+
+    conexion.close()
